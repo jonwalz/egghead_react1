@@ -20161,6 +20161,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(33);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20175,21 +20179,71 @@
 	    function App() {
 	        _classCallCheck(this, App);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
+
+	        _this.state = {
+	            red: 0,
+	            green: 0,
+	            blue: 0
+	        };
+	        _this.update = _this.update.bind(_this);
+	        return _this;
 	    }
 
 	    _createClass(App, [{
+	        key: 'update',
+	        value: function update(e) {
+	            this.setState({
+	                red: _reactDom2.default.FindDOMNode(this.refs.red).value,
+	                green: _reactDom2.default.FindDOMNode(this.refs.green).value,
+	                blue: _reactDom2.default.FindDOMNode(this.refs.blue).value
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h1',
+	                'div',
 	                null,
-	                'Hello World'
+	                _react2.default.createElement('hr', null),
+	                _react2.default.createElement(Slider, { ref: 'red', update: this.update }),
+	                this.state.red,
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(Slider, { ref: 'green', update: this.update }),
+	                this.state.green,
+	                _react2.default.createElement('br', null),
+	                _react2.default.createElement(Slider, { ref: 'blue', update: this.update }),
+	                this.state.blue,
+	                _react2.default.createElement('br', null)
 	            );
 	        }
 	    }]);
 
 	    return App;
+	}(_react2.default.Component);
+
+	;
+
+	var Slider = function (_React$Component2) {
+	    _inherits(Slider, _React$Component2);
+
+	    function Slider() {
+	        _classCallCheck(this, Slider);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Slider).apply(this, arguments));
+	    }
+
+	    _createClass(Slider, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('input', { type: 'range',
+	                min: '0',
+	                max: '255',
+	                onChange: this.props.update });
+	        }
+	    }]);
+
+	    return Slider;
 	}(_react2.default.Component);
 
 	exports.default = App;
